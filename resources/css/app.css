@@ -1,0 +1,72 @@
+/* resources/css/app.css */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@400;600&display=swap');
+
+:root {
+    --kiniko-red: #7b1e1e;
+    --kiniko-dark: #2b2b2b;
+    --kiniko-ivory: #f8f4ee;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+body {
+    font-family: 'Cormorant Garamond', serif;
+    background-color: #f8f4ee;
+    /* ivory */
+    color: #2b2b2b;
+    font-size: 18px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: .5px;
+}
+
+.navbar .nav-link {
+    position: relative;
+    padding-bottom: .25rem;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+    color: var(--kiniko-red);
+}
+
+.divider {
+    height: 1px;
+    width: 120px;
+    margin: 1.5rem auto;
+    background: linear-gradient(to right,
+            transparent,
+            var(--kiniko-red),
+            transparent);
+}
+
+.art-card {
+    background: #fff;
+    border: 1px solid #e2ddd4;
+    transition: all .3s ease;
+}
+
+.art-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
+}
