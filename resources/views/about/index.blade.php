@@ -45,53 +45,14 @@
         <div class="container">
 
             <header class="text-center mb-5">
-                <h1 class="fw-serif">About Kiniko Art Management</h1>
+                <h1 class="fw-serif">{{ $about->title }}</h1>
                 <div class="divider"></div>
-                <p class="text-muted small">
-                    An art management platform dedicated to sustaining
-                    contemporary visual culture.
-                </p>
+                <p class="text-muted small">{{ $about->description }}</p>
             </header>
 
             <div class="row justify-content-center">
                 <div class="col-lg-9 text-justify">
-
-                    <p>
-                        Visual art has long been an essential element in shaping human
-                        civilization, influencing the development of technology,
-                        communication, fashion, and social structures.
-                        Indonesia itself possesses a rich visual tradition, whose
-                        cultural relics allow us to trace the greatness of past
-                        civilizations and their ways of seeing the world.
-                    </p>
-
-                    <p>
-                        This visual legacy continues today through contemporary artists
-                        who produce outstanding works capable of standing alongside
-                        global art practices.
-                        The growing number of art institutions has contributed to the
-                        increasing emergence of artists each year—an encouraging
-                        development that nonetheless requires supportive infrastructure
-                        to sustain artistic production and creative ideas.
-                    </p>
-
-                    <p>
-                        The vast potential of visual arts represents a promising future
-                        for the cultural development of the nation.
-                        Artists stand as one of the last guardians of cultural identity.
-                        In an era of globalization—where internet technology has created
-                        shared cultures and languages that risk eroding local identities—
-                        artists respond to these challenges through artistic expression.
-                    </p>
-
-                    <p>
-                        In response to this awareness, <strong>Kiniko Art</strong> was
-                        established on <strong>18 October 2016</strong> as a platform
-                        dedicated to supporting and facilitating artistic activities,
-                        providing space for critical discourse, presentation, and
-                        appreciation of contemporary visual art.
-                    </p>
-
+                    {!! nl2br(e($about->content)) !!}
                 </div>
             </div>
 
