@@ -9,6 +9,38 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $exhibitions = collect([
+            (object)[
+                'title' => 'Untitled Exhibition',
+                'slug' => 'untitled-exhibition',
+                'period' => 'Upcoming, 2025',
+                'venue' => 'Kiniko Gallery',
+            ],
+            (object)[
+                'title' => 'Untitled Exhibition',
+                'slug' => 'untitled-exhibition',
+                'period' => 'Upcoming, 2025',
+                'venue' => 'Kiniko Gallery',
+            ],
+            (object)[
+                'title' => 'Untitled Exhibition',
+                'slug' => 'untitled-exhibition',
+                'period' => 'Upcoming, 2025',
+                'venue' => 'Kiniko Gallery',
+            ],
+            (object)[
+                'title' => 'Untitled Exhibition',
+                'slug' => 'untitled-exhibition',
+                'period' => 'Upcoming, 2025',
+                'venue' => 'Kiniko Gallery',
+            ],
+            (object)[
+                'title' => 'Untitled Exhibition',
+                'slug' => 'untitled-exhibition',
+                'period' => 'Upcoming, 2025',
+                'venue' => 'Kiniko Gallery',
+            ],
+        ]);
+        return view('home', compact('exhibitions'));
     }
 }

@@ -6,38 +6,55 @@ use App\Http\Controllers\{
     GalleryController,
     ExhibitionController,
     ArtistController,
-    PaintingController,
+    // PaintingController,
+    ArtworkController,
     NewsController,
     ContactController
 };
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/about', fn() => view('about'))->name('about');
+Route::get('/about', function () {
+    return view('about.index');
+})->name('about');
 
 /* CONTACT */
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/contact', function () {
+    return view('contact.index');
+})->name('contact');
 
 /* GALLERY */
 Route::prefix('gallery')->group(function () {
-    Route::get('/', [GalleryController::class, 'index'])->name('gallery.index');
-    Route::get('/{gallery:slug}', [GalleryController::class, 'show'])->name('gallery.show');
+
+    Route::get('/', [GalleryController::class, 'index'])
+        ->name('gallery.index');
+
+    Route::get('/archive/{year}', [GalleryController::class, 'year'])
+        ->name('gallery.archive.year');
 });
 
 /* EXHIBITION */
 Route::prefix('exhibitions')->group(function () {
     Route::get('/', [ExhibitionController::class, 'index'])->name('exhibitions.index');
-    Route::get('/{exhibition:slug}', [ExhibitionController::class, 'show'])->name('exhibitions.show');
+    Route::get('/{slug}', [ExhibitionController::class, 'show'])->name('exhibitions.show');
+    // Route::get('/{exhibition:slug}', [ExhibitionController::class, 'show'])->name('exhibitions.show');
 });
 
 /* ARTIST */
 Route::get('/artists', [ArtistController::class, 'index'])->name('artists.index');
-Route::get('/artists/{artist:slug}', [ArtistController::class, 'show'])->name('artists.show');
+Route::get('/artists/{slug}', [ArtistController::class, 'show'])->name('artists.show');
+// Route::get('/artists/{artist:slug}', [ArtistController::class, 'show'])->name('artists.show');
 
-/* PAINTING */
-Route::get('/paintings', [PaintingController::class, 'index'])->name('paintings.index');
-Route::get('/paintings/{painting:slug}', [PaintingController::class, 'show'])->name('paintings.show');
+/* ARTWORK */
+Route::prefix('artworks')->group(function () {
+    Route::get('/', [ArtworkController::class, 'index'])->name('artworks.index');
+    Route::get('/{slug}', [ArtworkController::class, 'show'])->name('artworks.show');
+    // Route::get('/{artwork:slug}', [ArtworkController::class, 'show'])->name('artworks.show');
+});
+
+// /* PAINTING */
+// Route::get('/paintings', [PaintingController::class, 'index'])->name('paintings.index');
+// Route::get('/paintings/{painting:slug}', [PaintingController::class, 'show'])->name('paintings.show');
 
 /* NEWS */
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');

@@ -1,20 +1,63 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-transparent border-bottom">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="/">
-            <img src="{{ asset('images/logo.png') }}" height="40" alt="Kiniko">
+
+        <a class="navbar-brand fw-bold" href="{{ route('home') }}">
+            <img src="{{ asset('img/logo.png') }}" height="40" alt="Kiniko Art Management">
         </a>
+
         <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMain">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navMain">
             <ul class="navbar-nav ms-auto gap-3 text-uppercase small">
-                <li><a class="nav-link" href="/gallery">Gallery</a></li>
-                <li><a class="nav-link" href="/exhibitions">Exhibition</a></li>
-                <li><a class="nav-link" href="/artists">Artist</a></li>
-                <li><a class="nav-link" href="/paintings">Painting</a></li>
-                <li><a class="nav-link" href="/news">News</a></li>
-                <li><a class="nav-link" href="/about">About</a></li>
-                <li><a class="nav-link" href="/contact">Contact</a></li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('gallery.*') ? 'active' : '' }}"
+                        href="{{ route('gallery.index') }}">
+                        Gallery
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('exhibitions.*') ? 'active' : '' }}"
+                        href="{{ route('exhibitions.index') }}">
+                        Exhibition
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('artists.*') ? 'active' : '' }}"
+                        href="{{ route('artists.index') }}">
+                        Artist
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('artworks.*') ? 'active' : '' }}"
+                        href="{{ route('artworks.index') }}">
+                        Artwork
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">
+                        About
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
+                        href="{{ route('contact') }}">
+                        Contact
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>

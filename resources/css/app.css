@@ -1,55 +1,148 @@
-/* resources/css/app.css */
+/* Bootstrap */
 @import "bootstrap/dist/css/bootstrap.min.css";
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@400;600&display=swap');
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Libre+Baskerville:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=EB+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap');
 
+
+/* ===============================
+   KINIKO COLOR SYSTEM
+================================ */
 :root {
-    --kiniko-red: #7b1e1e;
-    --kiniko-dark: #2b2b2b;
+    --kiniko-red: #F51C24;
+    --kiniko-red-muted: #b81d23;
+
+    --kiniko-dark: #1f1f1f;
+    --kiniko-gray: #6e6e6e;
+
     --kiniko-ivory: #f8f4ee;
+    --kiniko-gold: #c7a14a;
 }
 
+/* ===============================
+   LAYOUT BASE
+================================ */
 html,
 body {
     height: 100%;
 }
 
+body,
+a,
+.navbar,
+.nav-link,
+.small {
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    letter-spacing: 0.03em;
+}
+
 body {
     display: flex;
     flex-direction: column;
+    background-color: var(--kiniko-ivory);
+    color: var(--kiniko-dark);
+    font-size: 18px;
 }
 
 main {
     flex: 1;
 }
 
-body {
-    font-family: 'Cormorant Garamond', serif;
-    background-color: #f8f4ee;
-    /* ivory */
-    color: #2b2b2b;
-    font-size: 18px;
-}
-
+/* ===============================
+   TYPOGRAPHY
+================================ */
 h1,
 h2,
 h3,
 h4,
 h5 {
-    font-family: 'Playfair Display', serif;
-    letter-spacing: .5px;
+    font-family: 'Libre Baskerville', serif;
+    letter-spacing: 0.03em;
 }
+
+.text-muted {
+    color: var(--kiniko-gray) !important;
+}
+
+/*=========================NAVBAR BASE=========================*/
+.navbar {
+    background: transparent;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.navbar-brand img {
+    display: block;
+    height: 40px;
+}
+
+/* =========================
+   NAV LINK TYPOGRAPHY
+========================= */
 
 .navbar .nav-link {
     position: relative;
-    padding-bottom: .25rem;
+    padding-bottom: .35rem;
+    font-size: .85rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+
+    color: var(--kiniko-dark);
+    opacity: .75;
+
+    transition:
+        color .25s ease,
+        opacity .25s ease;
 }
 
+/* Hover & Active text */
 .navbar .nav-link:hover,
 .navbar .nav-link.active {
     color: var(--kiniko-red);
+    opacity: 1;
 }
 
+/* =========================
+   UNDERLINE — EDITORIAL STYLE
+========================= */
+
+.navbar .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+
+    width: 0;
+    height: 1px;
+
+    background: currentColor;
+    transform: translateX(-50%);
+    transition: width .3s ease;
+}
+
+/* Reveal underline */
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after {
+    width: 100%;
+}
+
+/* =========================
+   ACTIVE STATE (STABLE)
+========================= */
+
+.navbar .nav-link.active {
+    font-weight: 500;
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, .95);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(0, 0, 0, .06);
+}
+
+/* ===============================
+   DIVIDER / ORNAMENT
+================================ */
 .divider {
     height: 1px;
     width: 120px;
@@ -60,13 +153,209 @@ h5 {
             transparent);
 }
 
+/* =========================
+   SCROLL TO TOP
+========================= */
+
+#scrollTopBtn {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    z-index: 999;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(6px);
+
+    color: var(--kiniko-dark);
+    font-size: 1rem;
+    line-height: 1;
+
+    cursor: pointer;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition:
+        opacity .3s ease,
+        transform .3s ease,
+        visibility .3s ease,
+        background .3s ease;
+}
+
+#scrollTopBtn:hover {
+    background: var(--kiniko-red);
+    color: #fff;
+}
+
+/* Visible state */
+#scrollTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* ===============================
+   ART CARD (MUSEUM STYLE)
+================================ */
 .art-card {
     background: #fff;
-    border: 1px solid #e2ddd4;
-    transition: all .3s ease;
+    border: 1px solid #eee;
+    transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .art-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .05);
+}
+
+.art-card figure img {
+    transition: transform .4s ease;
+}
+
+.art-card:hover figure img {
+    transform: scale(1.03);
+}
+
+/* ===============================
+   HERO EDITORIAL
+================================ */
+.hero-editorial {
+    padding: 6rem 0;
+}
+
+.hero-label {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+    color: var(--kiniko-gray);
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 5vw, 4.5rem);
+    line-height: 1.1;
+}
+
+/* ===============================
+   EDITORIAL IMAGE FRAME
+================================ */
+.editorial-frame {
+    position: relative;
+}
+
+.editorial-frame img {
+    width: 100%;
+    display: block;
+}
+
+.editorial-frame figcaption {
+    font-size: 0.75rem;
+    color: var(--kiniko-gray);
+    margin-top: .5rem;
+}
+
+/* ===============================
+   CLASSIC LINK (MUSEUM STYLE)
+================================ */
+.classic-link {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--kiniko-red);
+    text-decoration: none;
+    position: relative;
+}
+
+.classic-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 1px;
+    background: var(--kiniko-red);
+    transition: width .3s ease;
+}
+
+.classic-link:hover::after {
+    width: 100%;
+}
+
+.exhibition-list li h4 {
+    font-size: 1.25rem;
+}
+
+.exhibition-list li {
+    padding: 1rem;
+    transition: background .3s ease;
+}
+
+.exhibition-list li:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.featured-exhibition {
+    position: relative;
+    padding: 6rem 0;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.15)), var(--bg-image);
+    background-size: cover;
+    background-position: center;
+}
+
+.featured-exhibition .overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to bottom,
+            rgba(0, 0, 0, .15),
+            rgba(0, 0, 0, .35));
+}
+
+@media (max-width: 992px) {
+
+    .navbar {
+        background: #fff;
+        border-bottom: 1px solid rgba(0, 0, 0, .05);
+    }
+
+    .navbar .nav-link {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    #scrollTopBtn {
+        right: 1rem;
+        bottom: 1.25rem;
+    }
+
+    .hero-editorial {
+        padding: 4rem 0;
+    }
+
+    .hero-title {
+        font-size: 2.4rem;
+    }
+
+    .editorial-frame figcaption {
+        text-align: center;
+    }
+
+    .exhibition-list li h4 {
+        font-size: 1.1rem;
+    }
+
+    .featured-exhibition {
+        padding: 4rem 0;
+    }
+
+    .featured-exhibition h2 {
+        font-size: 1.8rem;
+    }
 }
