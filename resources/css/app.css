@@ -127,6 +127,51 @@ h5 {
 }
 
 /* =========================
+   KINIKO MOBILE TOGGLER
+========================= */
+
+.kiniko-toggler {
+    border: none;
+    padding: .25rem;
+    background: transparent;
+}
+
+.kiniko-toggler:focus {
+    box-shadow: none;
+}
+
+.kiniko-toggler .toggler-line {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    margin: 5px 0;
+
+    background-color: var(--kiniko-dark);
+    transition:
+        transform .3s ease,
+        opacity .3s ease,
+        background .3s ease;
+}
+
+/* Active state (open) */
+.kiniko-toggler[aria-expanded="true"] .toggler-line:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+}
+
+.kiniko-toggler[aria-expanded="true"] .toggler-line:nth-child(2) {
+    opacity: 0;
+}
+
+.kiniko-toggler[aria-expanded="true"] .toggler-line:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* Hover subtle */
+.kiniko-toggler:hover .toggler-line {
+    background-color: var(--kiniko-red);
+}
+
+/* =========================
    ACTIVE STATE (STABLE)
 ========================= */
 
@@ -326,6 +371,17 @@ h5 {
 
     .navbar .nav-link {
         opacity: 1;
+    }
+
+    .navbar-collapse {
+        background: rgba(248, 244, 238, 0.96);
+        backdrop-filter: blur(6px);
+        padding: 1.5rem 1rem;
+        margin-top: .75rem;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 1.1rem;
     }
 }
 
