@@ -132,7 +132,7 @@ h5 {
 
 .kiniko-toggler {
     border: none;
-    padding: .25rem;
+    /* padding: .25rem; */
     background: transparent;
 }
 
@@ -143,7 +143,7 @@ h5 {
 .kiniko-toggler .toggler-line {
     display: block;
     width: 22px;
-    height: 1.5px;
+    height: 2px;
     margin: 5px 0;
 
     background-color: var(--kiniko-dark);

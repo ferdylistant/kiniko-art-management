@@ -2,45 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Exhibition;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $exhibitions = collect([
-            (object)[
-                'title' => 'Untitled Exhibition',
-                'slug' => 'untitled-exhibition',
-                'period' => 'Upcoming, 2025',
-                'venue' => 'Kiniko Gallery',
-            ],
-            (object)[
-                'title' => 'Untitled Exhibition',
-                'slug' => 'untitled-exhibition',
-                'period' => 'Upcoming, 2025',
-                'venue' => 'Kiniko Gallery',
-            ],
-            (object)[
-                'title' => 'Untitled Exhibition',
-                'slug' => 'untitled-exhibition',
-                'period' => 'Upcoming, 2025',
-                'venue' => 'Kiniko Gallery',
-            ],
-            (object)[
-                'title' => 'Untitled Exhibition',
-                'slug' => 'untitled-exhibition',
-                'period' => 'Upcoming, 2025',
-                'venue' => 'Kiniko Gallery',
-            ],
-            (object)[
-                'title' => 'Untitled Exhibition',
-                'slug' => 'untitled-exhibition',
-                'period' => 'Upcoming, 2025',
-                'venue' => 'Kiniko Gallery',
-            ],
-        ]);
-        return view('home', compact('exhibitions'));
+        $currentExhibition = Exhibition::where('is_current', 1)->first();
+        $exhibitions = Exhibition::orderBy('start_date', 'desc')->limit(5)->get();
+        return view('home', compact('exhibitions', 'currentExhibition'));
     }
 }

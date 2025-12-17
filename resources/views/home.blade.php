@@ -2,9 +2,19 @@
 
 @section('title', 'Kiniko Art Management — Contemporary Art, Exhibition & Artist Representation')
 
-@section('meta_description', 'Kiniko Art Management is a contemporary art management platform that presents exhibitions,
+@section('meta_description',
+    'Kiniko Art Management is a contemporary art management platform that presents exhibitions,
     artists, and institution-based curatorial narratives.')
-
+    @push('styles')
+        <style>
+            .featured-exhibition.fallback {
+                background: linear-gradient(135deg, #111, #222);
+                min-height: 300px;
+                display: flex;
+                align-items: center;
+            }
+        </style>
+    @endpush
 @section('content')
 
     {{-- HERO EDITORIAL --}}
@@ -45,134 +55,151 @@
         </div>
     </section>
     {{-- CURRENT / FEATURED EXHIBITION --}}
-    <section class="featured-exhibition"
-        style="--bg-image: url('https://indoartnow.com/uploads/artwork/image/42219/Screenshot_2025-10-17_151831.png');">
+    @if ($currentExhibition)
+        <section class="featured-exhibition"
+            style="--bg-image: url('{{ asset('storage/' . $currentExhibition->banner) }}');">
 
-        <div class="overlay"></div>
+            <div class="overlay"></div>
 
-        <div class="container position-relative">
+            <div class="container position-relative">
 
-            <div class="text-center mb-5 text-light">
-                <h2 class="fw-serif">Featured Exhibition</h2>
-                <div class="divider divider-light"></div>
-                <p class="small opacity-75">
-                    Selected exhibition presented by Kiniko Art Management
-                </p>
-            </div>
-
-            <div class="row justify-content-center mb-5">
-                <div class="col-lg-10">
-
-                    <article class="art-card art-card-overlay p-4 p-md-5">
-
-                        <div class="row g-5 align-items-center">
-
-                            <div class="col-md-6">
-                                <figure class="m-0">
-                                    <img src="https://indoartnow.com/uploads/artwork/image/42219/Screenshot_2025-10-17_151831.png"
-                                        class="img-fluid" alt="Featured Exhibition Installation View">
-                                    <figcaption class="small text-muted mt-2">
-                                        Installation view — Kiniko Exhibition Program
-                                    </figcaption>
-                                </figure>
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <p class="exhibition-meta mb-2">
-                                    Current Exhibition
-                                </p>
-
-                                <h2 class="exhibition-title mb-2">
-                                    Untitled Exhibition
-                                </h2>
-
-                                <p class="exhibition-caption mb-4">
-                                    June – August 2025<br>
-                                    Kiniko Art Space, Yogyakarta
-                                </p>
-
-                                <p class="text-muted">
-                                    A curated presentation exploring contemporary
-                                    artistic responses to space, memory, and
-                                    socio-cultural transformation.
-                                </p>
-
-                                <a href="{{ route('exhibitions.show', 'untitled-exhibition') }}" class="classic-link">
-                                    View Exhibition →
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
+                <div class="text-center mb-5 text-light">
+                    <h2 class="fw-serif">Featured Exhibition</h2>
+                    <div class="divider divider-light"></div>
+                    <p class="small opacity-75">
+                        Selected exhibition presented by Kiniko Art Management
+                    </p>
                 </div>
-            </div>
 
-        </div>
-    </section>
+                <div class="row justify-content-center mb-5">
+                    <div class="col-lg-10">
 
+                        <article class="art-card art-card-overlay p-4 p-md-5">
 
-    {{-- EXHIBITION ARCHIVE --}}
-    <section class="py-5">
-        <div class="container">
+                            <div class="row g-5 align-items-center">
 
-            <header class="text-center mb-5">
-                <h2 class="fw-serif">Exhibition Archive</h2>
-                <div class="divider"></div>
-                <p class="text-muted small">
-                    A chronological archive of past exhibitions curated
-                    and presented by Kiniko Art Management.
-                </p>
-            </header>
+                                <div class="col-md-6">
+                                    <figure class="m-0">
+                                        <img src="{{ asset('storage/' . $currentExhibition->banner) }}" class="img-fluid"
+                                            alt="Featured Exhibition Installation View">
+                                        <figcaption class="small text-muted mt-2">
+                                            Installation view — Kiniko Exhibition Program
+                                        </figcaption>
+                                    </figure>
+                                </div>
 
-            <div class="row justify-content-center">
+                                <div class="col-md-6">
 
-                <div class="col-lg-9">
+                                    <p class="exhibition-meta mb-2">
+                                        Current Exhibition
+                                    </p>
 
-                    <ul class="list-unstyled exhibition-list">
+                                    <h2 class="exhibition-title mb-2">
+                                        {{ $currentExhibition->title }}
+                                    </h2>
 
-                        @foreach ($exhibitions as $exhibition)
-                            <li class="py-4 border-bottom">
+                                    <p class="exhibition-caption mb-4">
+                                        {{ $currentExhibition->formatted_period }}
+                                        <br>
+                                        {{ $currentExhibition->venue }}
+                                    </p>
 
-                                <div class="row align-items-center">
+                                    <p class="text-muted">
+                                        {{ Str::limit(strip_tags($currentExhibition->description), 200) }}
 
-                                    <div class="col-md-8">
+                                    </p>
 
-                                        <h4 class="mb-1">
-                                            {{ $exhibition->title }}
-                                        </h4>
-
-                                        <p class="text-muted small mb-0">
-                                            {{ $exhibition->period }}
-                                            @if (!empty($exhibition->venue))
-                                                — {{ $exhibition->venue }}
-                                            @endif
-                                        </p>
-
-                                    </div>
-
-                                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                                        <a href="{{ route('exhibitions.show', $exhibition->slug) }}" class="classic-link">
-                                            View →
-                                        </a>
-                                    </div>
+                                    <a href="{{ route('exhibitions.show', $currentExhibition->slug) }}"
+                                        class="classic-link">
+                                        View Exhibition →
+                                    </a>
 
                                 </div>
 
-                            </li>
-                        @endforeach
+                            </div>
 
-                    </ul>
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    @else
+        {{-- NO CURRENT EXHIBITION --}}
+        <section class="featured-exhibition fallback">
+            <div class="container py-5 text-center text-light">
+                <h2 class="fw-serif">No Current Exhibition</h2>
+                <div class="divider divider-light"></div>
+                <p class="opacity-75">
+                    There is no active exhibition at the moment.<br>
+                    Upcoming programs will be announced soon.
+                </p>
+            </div>
+        </section>
+    @endif
+
+    {{-- EXHIBITION ARCHIVE --}}
+    @if ($exhibitions->isNotEmpty())
+        <section class="py-5">
+            <div class="container">
+
+                <header class="text-center mb-5">
+                    <h2 class="fw-serif">Exhibition Archive</h2>
+                    <div class="divider"></div>
+                    <p class="text-muted small">
+                        A chronological archive of past exhibitions curated
+                        and presented by Kiniko Art Management.
+                    </p>
+                </header>
+
+                <div class="row justify-content-center">
+
+                    <div class="col-lg-9">
+
+                        <ul class="list-unstyled exhibition-list">
+
+                            @foreach ($exhibitions as $exhibition)
+                                <li class="py-4 border-bottom">
+
+                                    <div class="row align-items-center">
+
+                                        <div class="col-md-8">
+
+                                            <h4 class="mb-1">
+                                                {{ $exhibition->title }}
+                                            </h4>
+
+                                            <p class="text-muted small mb-0">
+                                                {{ $exhibition->period }}
+                                                @if (!empty($exhibition->venue))
+                                                    — {{ $exhibition->venue }}
+                                                @endif
+                                            </p>
+
+                                        </div>
+
+                                        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                            <a href="{{ route('exhibitions.show', $exhibition->slug) }}"
+                                                class="classic-link">
+                                                View →
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                </li>
+                            @endforeach
+
+                        </ul>
+
+                    </div>
 
                 </div>
 
             </div>
-
-        </div>
-    </section>
+        </section>
+    @endif
     {{-- CORE PILLARS --}}
     <section class="py-5 bg-white">
         <div class="container">

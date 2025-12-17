@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class VisionMission extends Model
 {
     use HasFactory;
+
+    protected $table = 'visions_missions';
+    protected $fillable = [
+        'type', // 'vision' or 'mission'
+        'description',
+    ];
 }

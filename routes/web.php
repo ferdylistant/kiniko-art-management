@@ -6,17 +6,17 @@ use App\Http\Controllers\{
     GalleryController,
     ExhibitionController,
     ArtistController,
+    AboutController,
     // PaintingController,
     ArtworkController,
     NewsController,
     ContactController
 };
+use App\Models\About;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/about', function () {
-    return view('about.index');
-})->name('about');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 /* CONTACT */
 Route::get('/contact', function () {
