@@ -2,9 +2,8 @@
 
 @section('title', 'Kiniko Art Management — Contemporary Art, Exhibition & Artist Representation')
 
-@section('meta_description',
-    'Kiniko Art Management adalah platform manajemen seni kontemporer yang menghadirkan
-    pameran, seniman, dan narasi kuratorial berbasis institusi.')
+@section('meta_description', 'Kiniko Art Management is a contemporary art management platform that presents exhibitions,
+    artists, and institution-based curatorial narratives.')
 
 @section('content')
 

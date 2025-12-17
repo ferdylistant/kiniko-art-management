@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2025 at 09:34 AM
+-- Generation Time: Dec 17, 2025 at 09:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.28
 
@@ -47,11 +47,73 @@ INSERT INTO `abouts` (`id`, `title`, `description`, `content`, `image`, `created
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `artists`
+--
+
+CREATE TABLE `artists` (
+  `id` char(36) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `bio` text DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_by` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `artist_exhibitions`
+--
+
+CREATE TABLE `artist_exhibitions` (
+  `artist_id` char(36) NOT NULL,
+  `exhibition_id` char(36) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `artworks`
+--
+
+CREATE TABLE `artworks` (
+  `id` char(36) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `artist_id` char(36) NOT NULL,
+  `exhibition_id` char(36) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contacts`
+--
+
+CREATE TABLE `contacts` (
+  `id` char(36) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `subject` varchar(100) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `exhibitions`
 --
 
 CREATE TABLE `exhibitions` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` char(36) NOT NULL,
   `title` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
@@ -60,8 +122,9 @@ CREATE TABLE `exhibitions` (
   `venue` varchar(255) DEFAULT NULL,
   `is_current` tinyint(1) NOT NULL DEFAULT 0,
   `banner` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -184,15 +247,47 @@ CREATE TABLE `quotes` (
 --
 
 CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
+  `avatar` varchar(100) DEFAULT 'default.jpg',
+  `birth_date` date DEFAULT NULL,
+  `birth_place` varchar(100) DEFAULT NULL,
+  `phone_number` varchar(20) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `gender` enum('L','P') DEFAULT NULL,
+  `religion` enum('Islam','Katolik','Kristen','Budha','Hindu') DEFAULT NULL,
+  `blood_type` varchar(5) DEFAULT NULL,
+  `branch_id` char(36) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `organization_id` char(36) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `jobposition_id` char(36) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `ktp` varchar(30) DEFAULT NULL,
+  `rekening` varchar(30) DEFAULT NULL,
+  `marital_status` enum('Menikah','Belum Menikah','Duda','Janda') DEFAULT NULL,
+  `has_children` set('0','1') DEFAULT NULL,
+  `number_of_children` varchar(20) DEFAULT NULL,
+  `status_account` set('0','1') NOT NULL DEFAULT '1',
+  `employment_state` enum('active','resign','break') NOT NULL DEFAULT 'active',
+  `employee_id` varchar(10) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `web_app` set('0','1') NOT NULL DEFAULT '0',
+  `mobile_app` set('0','1') NOT NULL DEFAULT '0',
+  `administrator` tinyint(1) NOT NULL DEFAULT 0,
   `remember_token` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `avatar`, `birth_date`, `birth_place`, `phone_number`, `address`, `gender`, `religion`, `blood_type`, `branch_id`, `organization_id`, `jobposition_id`, `ktp`, `rekening`, `marital_status`, `has_children`, `number_of_children`, `status_account`, `employment_state`, `employee_id`, `start_date`, `end_date`, `web_app`, `mobile_app`, `administrator`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('36d18d79-1b44-11f0-bdc6-e89c257adf55', 'Admin', 'admin@gmail.com', NULL, '$2y$12$9BD.twAeHsosWi/kionhteFUOxTbALDpiFwkn/9MrxmtHZAhN6qkm', 'default.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', 'active', NULL, NULL, NULL, '1', '1', 1, 'IWCtDLwIJH34KJLZIJV0pzN8lFCe6fGDOPx4hCFxq6Phif1rWSvKx9u4SlGp', '2025-04-17 04:27:03', '2025-12-08 21:23:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -224,6 +319,24 @@ INSERT INTO `visions_missions` (`id`, `type`, `description`, `created_at`, `upda
 -- Indexes for table `abouts`
 --
 ALTER TABLE `abouts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `artists`
+--
+ALTER TABLE `artists`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `artworks`
+--
+ALTER TABLE `artworks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contacts`
+--
+ALTER TABLE `contacts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -277,7 +390,12 @@ ALTER TABLE `quotes`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD KEY `branch_id` (`branch_id`),
+  ADD KEY `organization_id` (`organization_id`),
+  ADD KEY `jobposition_id` (`jobposition_id`),
+  ADD KEY `name_2` (`name`);
+ALTER TABLE `users` ADD FULLTEXT KEY `name` (`name`);
 
 --
 -- Indexes for table `visions_missions`
@@ -294,12 +412,6 @@ ALTER TABLE `visions_missions`
 --
 ALTER TABLE `abouts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `exhibitions`
---
-ALTER TABLE `exhibitions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -329,12 +441,6 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `quotes`
 --
 ALTER TABLE `quotes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --

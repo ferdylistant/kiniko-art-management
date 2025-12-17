@@ -7,18 +7,19 @@
     <title>@yield('title', 'Kiniko Art Management | Contemporary Art, Exhibition & Artist Representation')</title>
 
     {{-- BASIC SEO --}}
-    <meta name="description" content="@yield('meta_description', 'Kiniko Art Management adalah platform manajemen seni kontemporer yang berfokus pada pameran, seniman, dan narasi institusional.')">
+    <meta name="description" content="@yield('meta_description', 'Kiniko Art Management is a contemporary art management platform that presents exhibitions, artists, and institution-based curatorial narratives.')">
     <meta name="keywords"
-        content="art management, galeri seni, pameran seni, seniman kontemporer, kurator, art exhibition Indonesia">
+        content="art management, art gallery, art exhibitions, contemporary artists, curators, art exhibition Indonesia">
     <meta name="author" content="Kiniko Art Management">
     <meta name="robots" content="index, follow">
 
     {{-- OPEN GRAPH --}}
     <meta property="og:title" content="@yield('title', 'Kiniko Art Management')">
-    <meta property="og:description" content="@yield('meta_description', 'Manajemen seni dan pameran kontemporer dengan pendekatan institusional.')">
+    <meta property="og:description" content="@yield('meta_description', 'Contemporary art management and exhibitions with an institution-based curatorial approach.')">
     <meta property="og:type" content="website">
     <meta property="og:image" content="@yield('meta_image', asset('images/og-default.jpg'))">
-    <meta property="og:locale" content="id_ID">
+    <meta property="og:locale" content="en_US">
+
 
     {{-- VIEWPORT --}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
