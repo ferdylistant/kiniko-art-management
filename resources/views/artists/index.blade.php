@@ -35,7 +35,7 @@
                                 {{ $artist->location }}
                             </p>
 
-                            <a href="{{ route('artists.show', $artist->slug) }}" class="classic-link">
+                            <a href="{{ route('artists.show', Str::slug($artist->name)) }}" class="classic-link">
                                 View Profile →
                             </a>
 

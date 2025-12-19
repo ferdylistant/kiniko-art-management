@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Artist extends Model
+{
+  protected $table = 'artists';
+  public $incrementing = false;
+  protected $keyType = 'string';
+
+  protected $fillable = ['id', 'name', 'bio', 'photo', 'created_at', 'updated_at'];
+}

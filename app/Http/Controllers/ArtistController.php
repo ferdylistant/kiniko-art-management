@@ -2,40 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Artist;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ArtistController extends Controller
 {
     public function index()
     {
-        $artists = collect([
-            (object)[
-                'name' => 'Artist One',
-                'slug' => 'artist-one',
-                'discipline' => 'Contemporary Visual Artist',
-                'location' => 'Indonesia',
-            ],
-            (object)[
-                'name' => 'Artist Two',
-                'slug' => 'artist-two',
-                'discipline' => 'Mixed Media Artist',
-                'location' => 'Indonesia',
-            ],
-        ]);
+        $artists = Artist::orderBy('name')->get();
 
         return view('artists.index', compact('artists'));
     }
 
-    public function show($slug)
+    public function show(string $slug)
     {
-        $artist = (object)[
-            'name' => ucwords(str_replace('-', ' ', $slug)),
-            'slug' => $slug,
-            'bio' => 'This is a placeholder artist profile used to demonstrate institutional artist representation within Kiniko Art Management.',
-            'discipline' => 'Contemporary Artist',
-            'location' => 'Indonesia',
-            'year' => 'Active since 2020',
-        ];
+        $artist = Artist::all()->first(function ($artist) use ($slug) {
+            return Str::slug($artist->name) === $slug;
+        });
+
+        abort_if(!$artist, 404);
 
         return view('artists.show', compact('artist'));
     }

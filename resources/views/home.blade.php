@@ -29,9 +29,9 @@
                         Kiniko Art<br>
                         <span class="text-muted">Management</span>
                     </h1>
-
-
                     <div class="divider"></div>
+
+
 
                     <p class="lead text-muted mt-4">
                         Kiniko Art Management is dedicated to the development,
@@ -43,8 +43,7 @@
 
                 <div class="col-lg-6">
                     <figure class="editorial-frame">
-                        <img src="https://placehold.co/900x650?text=Exhibition+Installation"
-                            alt="Exhibition Installation View">
+                        <img src="{{ asset('img/hero.jpeg') }}" class="img-fluid" alt="Exhibition Installation View">
                         <figcaption>
                             Installation view — Kiniko Exhibition Program (Dummy)
                         </figcaption>
