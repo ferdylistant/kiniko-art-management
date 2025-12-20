@@ -9,6 +9,8 @@
    KINIKO COLOR SYSTEM
 ================================ */
 :root {
+    --motion-duration: 900ms;
+    --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
     --kiniko-red: #F51C24;
     --kiniko-red-muted: #b81d23;
 
@@ -24,7 +26,7 @@
 ================================ */
 html,
 body {
-    height: 100%;
+    min-height: 100%;
 }
 
 body,
@@ -64,11 +66,87 @@ h5 {
     color: var(--kiniko-gray) !important;
 }
 
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity var(--motion-duration) var(--motion-ease),
+        transform var(--motion-duration) var(--motion-ease);
+}
+
+.reveal-left {
+    transform: translateX(-32px);
+}
+
+.reveal-right {
+    transform: translateX(32px);
+}
+
+/* === ACTIVE === */
+.reveal.is-visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* === STAGGER (OPTIONAL) === */
+.reveal[data-delay="1"] {
+    transition-delay: 120ms;
+}
+
+.reveal[data-delay="2"] {
+    transition-delay: 240ms;
+}
+
+.reveal[data-delay="3"] {
+    transition-delay: 360ms;
+}
+
 /*=========================NAVBAR BASE=========================*/
-.navbar {
+/* .navbar {
     background: transparent;
     padding-top: 1rem;
     padding-bottom: 1rem;
+} */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    background: rgba(255, 255, 255, .85);
+    backdrop-filter: blur(8px);
+
+    transition:
+        background .35s ease,
+        box-shadow .35s ease,
+        border-bottom .35s ease;
+    will-change: backdrop-filter, box-shadow;
+}
+
+.navbar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    /* ini kuncinya */
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, .25),
+            rgba(0, 0, 0, .05));
+
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, .95);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+    backdrop-filter: blur(6px);
+    /* border-bottom: 1px solid rgba(0, 0, 0, .06); */
+
+}
+
+.navbar.scrolled::before {
+    opacity: 1;
 }
 
 .navbar-brand img {
@@ -89,10 +167,13 @@ h5 {
 
     color: var(--kiniko-dark);
     opacity: .75;
-
     transition:
         color .25s ease,
         opacity .25s ease;
+}
+
+.navbar.scrolled .nav-link {
+    text-shadow: 1px 1px 0px #FFFFFF, 3px 2px 0px rgba(0, 0, 0, 0.15);
 }
 
 /* Hover & Active text */
@@ -125,6 +206,7 @@ h5 {
 .navbar .nav-link.active::after {
     width: 100%;
 }
+
 
 /* =========================
    KINIKO MOBILE TOGGLER
@@ -177,12 +259,6 @@ h5 {
 
 .navbar .nav-link.active {
     font-weight: 500;
-}
-
-.navbar.scrolled {
-    background: rgba(255, 255, 255, .95);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid rgba(0, 0, 0, .06);
 }
 
 .hero-heading {
@@ -277,6 +353,7 @@ h5 {
    HERO EDITORIAL
 ================================ */
 .hero-editorial {
+    height: 100vh;
     padding: 6rem 0;
 }
 
@@ -425,6 +502,7 @@ h5 {
     }
 
     .hero-editorial {
+        height: auto;
         padding: 4rem 0;
     }
 

@@ -15,6 +15,9 @@
             }
         </style>
     @endpush
+    @push('scripts')
+        @vite('resources/js/pages/home.js')
+    @endpush
 @section('content')
 
     {{-- HERO EDITORIAL --}}
@@ -23,9 +26,9 @@
             <div class="row align-items-center g-5">
 
                 <div class="col-lg-6">
-                    <span class="hero-label">Art Management & Exhibition Platform</span>
+                    <span class="hero-label reveal">Art Management & Exhibition Platform</span>
 
-                    <h1 class="hero-title mt-3">
+                    <h1 class="hero-title mt-3 reveal" data-delay="1">
                         Kiniko Art<br>
                         <span class="text-muted">Management</span>
                     </h1>
@@ -33,7 +36,7 @@
 
 
 
-                    <p class="lead text-muted mt-4">
+                    <p class="lead text-muted mt-4 reveal" data-delay="2">
                         Kiniko Art Management is dedicated to the development,
                         presentation, and contextualization of contemporary
                         artistic practices through exhibitions and artist
@@ -42,8 +45,9 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <figure class="editorial-frame">
-                        <img src="{{ asset('img/hero.jpeg') }}" class="img-fluid" alt="Exhibition Installation View">
+                    <figure class="editorial-frame reveal reveal-right" data-delay="3">
+                        <img src="{{ asset('img/hero.jpeg') }}" class="img-fluid" alt="Exhibition Installation View"
+                            decoding="async" fetchpriority="high">
                         <figcaption>
                             Installation view — Kiniko Exhibition Program (Dummy)
                         </figcaption>
@@ -73,7 +77,7 @@
                 <div class="row justify-content-center mb-5">
                     <div class="col-lg-10">
 
-                        <article class="art-card art-card-overlay p-4 p-md-5">
+                        <article class="art-card art-card-overlay p-4 p-md-5 reveal">
 
                             <div class="row g-5 align-items-center">
 
@@ -211,7 +215,7 @@
             </header>
             <div class="row g-4 text-center">
 
-                <div class="col-md-4">
+                <div class="col-md-4 reveal" data-delay="0">
                     <div class="art-card h-100 p-4">
                         <h4>Gallery</h4>
                         <p class="text-uppercase small text-muted mb-2" style="letter-spacing:2px;">
@@ -224,7 +228,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 reveal" data-delay="1">
                     <div class="art-card h-100 p-4">
                         <h4>Exhibition</h4>
                         <p class="text-uppercase small text-muted mb-2" style="letter-spacing:2px;">
@@ -237,7 +241,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 reveal" data-delay="2">
                     <div class="art-card h-100 p-4">
                         <h4>Artist</h4>
                         <p class="text-uppercase small text-muted mb-2" style="letter-spacing:2px;">

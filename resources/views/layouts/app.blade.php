@@ -38,8 +38,9 @@
 }
 </script>
 
+    @vite('resources/css/app.css')
+    {{-- @vite('resources/css/vendor/aos.css') --}}
     @stack('styles')
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-ivory">
@@ -53,33 +54,62 @@
     </main>
 
     @include('partials.footer')
-
+    @vite('resources/js/app.js')
+    {{-- @vite('resources/js/vendor/aos.js') --}}
     <script>
-        window.addEventListener('scroll', () => {
-            document.querySelector('.navbar')
-                .classList.toggle('scrolled', window.scrollY > 40);
-        });
         document.addEventListener('DOMContentLoaded', () => {
-            const btn = document.getElementById('scrollTopBtn');
+            const navbar = document.querySelector('.navbar')
+            const scrollBtn = document.getElementById('scrollTopBtn')
 
-            if (!btn) return;
+            if (!navbar && !scrollBtn) return
 
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    btn.classList.add('show');
-                } else {
-                    btn.classList.remove('show');
+            const onScroll = () => {
+                const y = window.scrollY
+
+                if (navbar) {
+                    navbar.classList.toggle('scrolled', y > 40)
                 }
+
+                if (scrollBtn) {
+                    scrollBtn.classList.toggle('show', y > 300)
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, {
+                passive: true
             });
 
-            btn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+            function scrollToTop(duration = 900) {
+                const start = window.scrollY;
+                const startTime = performance.now();
+
+                function easeOutCubic(t) {
+                    return 1 - Math.pow(1 - t, 3);
+                }
+
+                function step(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = easeOutCubic(progress);
+
+                    window.scrollTo(0, start * (1 - eased));
+
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    }
+                }
+
+                requestAnimationFrame(step);
+            }
+
+            scrollBtn.addEventListener('click', () => {
+                scrollToTop(900);
             });
-        });
+
+            onScroll() // initial state
+        })
     </script>
+
     @stack('scripts')
 </body>
 
